@@ -1,0 +1,128 @@
+﻿@using Microsoft.AspNetCore.Identity;
+@inject IFavoritesService FavoriteService
+@inject UserManager<IdentityUser> UserManager
+@inject SignInManager<IdentityUser> SignInManager
+
+@model ServiceViewModel
+@{
+    ViewData["Title"] = "Service";
+}
+
+<section class="d-flex flex-column justify-content-center align-items-center">
+    <section class="col-md-12">
+        <section class="section-title col-md-12">
+            <div class="h3 text-center position-relative">
+                Service
+                @if (SignInManager.IsSignedIn(User))
+                {
+                    @if (FavoriteService.GetFavoriteServices(UserManager.GetUserId(User)).Result.Any(s => s.ServiceId == Model.ServiceId))
+                    {
+                        <form asp-action="RemoveFavoriteService" asp-controller="Account" asp-area="User" method="post">
+                            <input type="hidden" name="serviceId" value="@Model.ServiceId" />
+                            <button class="input-link link-favorite bi bi-bookmark-check-fill position-absolute mt-2 top-0 end-0" type="submit"></button>
+                        </form>
+                    }
+                    else
+                    {
+                        <form asp-action="AddFavoriteService" asp-controller="Account" asp-area="User" method="post">
+                            <input type="hidden" name="serviceId" value="@Model.ServiceId" />
+                            <button class="input-link link-favorite bi bi-bookmark-check position-absolute mt-2 top-0 end-0" type="submit"></button>
+                        </form>
+                    }
+                }
+            </div>
+        </section>
+        <section class="col-md-12 d-flex justify-content-evenly section py-4 px-0">
+            <section class="left-part-form col-md-5 d-flex flex-column justify-content-start">
+                <div class="form-floating col-md-12 mb-3">
+                    <input disabled value="@Model.Name" class="form-control" />
+                    <label>Name</label>
+                </div>
+                <div class="form-floating col-md-12 mb-3">
+                    <input disabled value="@Model.Price BYN" class="form-control" />
+                    <label>Price</label>
+                </div>
+            </section>
+            <section class="right-part-form col-md-5 d-flex flex-column justify-content-start">
+                <div class="form-floating col-md-12 mb-3">
+                    <input disabled value="@Model.Category.Name" class="form-control" />
+                    <label>Category</label>
+                </div>
+                <div class="form-floating col-md-12 mb-3">
+                    <input disabled value="@Model.Time" class="form-control" />
+                    <label>Time</label>
+                </div>
+            </section>
+        </section>
+    </section>
+    @if (Model.Workers.Any())
+    {
+        <section class="workers-list col-md-12">
+            <section>
+                <div class="section-title">
+                    <div class="h3 text-center position-relative">
+                        Workers
+                    </div>
+                </div>
+
+                <div class="col-md-12 p-4 section-scroll section-grid">
+                    @foreach (var worker in Model.Workers)
+                    {
+                        <div class="worker-inner">
+                            <div class="worker-photo">
+                                <a asp-action="Details" asp-controller="Worker" asp-area="" asp-route-workerId="@worker.WorkerId" class="worker-name">
+                                    <img src="../@worker.User.PhotoPath" />
+                                </a>
+                            </div>
+                            <div class="worker-info">
+                                <a asp-action="Details" asp-controller="Worker" asp-area="" asp-route-workerId="@worker.WorkerId" class="worker-name">@worker.User.Name</a>
+                                <div class="worker-description">@worker.Description</div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </section>
+        </section>
+    }
+    @if (Model.Advertisement != null)
+    {
+        <section class="workers-list col-md-12">
+            <section>
+                <div class="section-title">
+                    <div class="h3 text-center position-relative">
+                        Avertisement
+                    </div>
+                </div>
+                <div class="col-md-12 p-4 section-scroll section-grid">
+                    <div class="advertisement-inner">
+                        <div class="advertisement-imagebox">
+                            <div class="advertisement-image-bg" style="background-image: url(/@Model.Advertisement.ImagePath.Replace(@"\","/"));"></div>
+                        </div>
+                        <div class="discount">
+                            <div class="discount-value">
+                                @Model.Advertisement.Discount%
+                            </div>
+                        </div>
+                        <a class="advertisement-details modal-link" asp-action="Details" asp-controller="Advertisement"
+                       asp-area="" asp-route-advertisementId="@Model.Advertisement.AdvertisementId" data-bs-toggle="modal" data-bs-target="#modal-form">
+                            <div class="advertisement-info">
+                                <img src="../@Model.Advertisement.Business.LogoPath.Replace("\"","/")" />
+                                @Model.Advertisement.Business.Name
+                            </div>
+                            <div class="advertisement-name">
+                                @Model.Advertisement.Name
+                            </div>
+                            <div class="advertisement-name-hover">
+                                @Model.Advertisement.Name
+                            </div>
+                            <div class="advertisement-time">
+                                до @Model.Advertisement.EndDate.ToString("M")
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </section>
+        </section>
+    }
+</section>
+

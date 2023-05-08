@@ -1,0 +1,63 @@
+﻿@model AdvertisementViewModel
+<section class="modal-content pb-3">
+    <section class="text-center modal-title position-relative h3 py-2 section-title mb-3">
+        Add Advertisement
+        <a class="text-white position-absolute end-0 text-decoration-none me-4" href="#" data-bs-dismiss="modal">&times</a>
+    </section>
+    <section>
+        <div class="d-flex justify-content-center align-items-center">
+            <div class="col-md-10">
+                <form asp-action="Create" asp-controller="Advertisement" asp-area="Manager" method="post" enctype="multipart/form-data">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" asp-for="BusinessId" value="@ViewBag.BusinessId" />
+                    <input type="hidden" asp-for="ImagePath" class="imagespath-file-input"/>
+                    <div class="form-floating mb-3">
+                        <input asp-for="Name" class="form-control" placeholder="Name" autocomplete="off" aria-required="true" />
+                        <label asp-for="Name">Name</label>
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input asp-for="Description" class="form-control" placeholder="Description" autocomplete="off"/>
+                        <label asp-for="Description">Description</label>
+                        <span asp-validation-for="Description" class="text-danger"></span>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="date" asp-for="StartDate" class="form-control" placeholder="StartDate" autocomplete="off" aria-required="true" />
+                        <label asp-for="StartDate">Start Date</label>
+                        <span asp-validation-for="StartDate" class="text-danger"></span>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="date" asp-for="EndDate" class="form-control" placeholder="EndDate" autocomplete="off" aria-required="true" />
+                        <label asp-for="EndDate">End Date</label>
+                        <span asp-validation-for="EndDate" class="text-danger"></span>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input asp-for="Discount" class="form-control" placeholder="Discount" autocomplete="off" aria-required="true" />
+                        <label asp-for="Discount">Discount</label>
+                        <span asp-validation-for="Discount" class="text-danger"></span>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input class="form-control imagespath-file-input" placeholder="Image" disabled/>
+                        <label asp-for="ImagePath" class="images-file-label">Image</label>
+                        <span asp-validation-for="ImagePath" class="text-danger"></span>
+                    </div>
+                    <div class="form-group mb-3">
+                        <input hidden asp-for="Image" class="images-file-input" id="images-file">
+                        <label class="btn btn-file form-control" for="images-file">Choose Image</label>
+                    </div>
+                    <div class="form-group mb-3 d-flex justify-content-evenly">
+                        <input type="submit" value="Add Advertisement" class="btn btn-create col-md-4" />
+                        <a class="btn btn-cancel col-md-4" href="#" data-bs-dismiss="modal">Cancel</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+</section>
+
+<script src="~/js/site.js" asp-append-version="true"></script>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

@@ -1,0 +1,73 @@
+﻿@model RegisterViewModel
+@{
+    ViewData["Title"] = "Register";
+}
+<section class="d-flex flex-column justify-content-center align-items-center">
+    <section class="col-md-6 mt-2">
+        <section>
+            <section class="section-title col-md-12">
+                <div class="h3 text-center">
+                    Register
+                </div>
+            </section>
+        </section>
+        <section class="col-md-12 d-flex justify-content-center section py-4 px-0">
+            <section class="col-md-10 d-flex flex-column justify-content-start">
+                <form asp-action="Register" asp-controller="Account" asp-area="Identity" asp-route-returnUrl="@ViewBag.ReturnUrl" method="post" enctype="multipart/form-data">
+                    <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+                    <input type="hidden" asp-for="PhotoPath" class="logopath-file-input" />
+                    <div class="form-floating mb-3">
+                        <input asp-for="Name" class="form-control" autocomplete="off" aria-required="true" placeholder="Name" />
+                        <label asp-for="Name">Name</label>
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input asp-for="SurName" class="form-control" autocomplete="off" aria-required="true" placeholder="SurName" />
+                        <label asp-for="SurName">SurName</label>
+                        <span asp-validation-for="SurName" class="text-danger"></span>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="date" asp-for="DateOfBirth" class="form-control" autocomplete="off" aria-required="true" placeholder="DateOfBirth" />
+                        <label asp-for="DateOfBirth">DateOfBirth</label>
+                        <span asp-validation-for="DateOfBirth" class="text-danger"></span>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input asp-for="Email" class="form-control" autocomplete="off" aria-required="true" placeholder="Email" />
+                        <label asp-for="Email">Email</label>
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input asp-for="PhoneNumber" class="form-control" autocomplete="off" aria-required="true" placeholder="PhoneNumber" />
+                        <label asp-for="PhoneNumber">PhoneNumber</label>
+                        <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input asp-for="Password" class="form-control" autocomplete="new-password" aria-required="true" placeholder="password" />
+                        <label asp-for="Password">Password</label>
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input asp-for="ConfirmPassword" class="form-control" autocomplete="new-password" aria-required="true" placeholder="password" />
+                        <label asp-for="ConfirmPassword">ConfirmPassword</label>
+                        <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input class="form-control logopath-file-input" placeholder="Photo" />
+                        <label asp-for="PhotoPath" class="logo-file-label">Photo</label>
+                        <span asp-validation-for="PhotoPath" class="text-danger"></span>
+                    </div>
+                    <div class="form-group mb-3">
+                        <input hidden asp-for="Photo" class="logo-file-input" id="logo-file">
+                        <label class="btn btn-file form-control" for="logo-file">Choose Photo</label>
+                    </div>
+                    <button id="registerSubmit" type="submit" class="w-100 btn btn-create">Register</button>
+                </form>
+            </section>
+        </section>
+    </section>
+</section>
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

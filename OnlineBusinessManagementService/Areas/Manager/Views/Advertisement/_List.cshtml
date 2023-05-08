@@ -1,0 +1,57 @@
+﻿@model (List<AdvertisementViewModel>, int)
+
+<section>
+    <div class="section-title">
+        <div class="h3 text-center position-relative">
+            Advertisements
+            <a class="modal-link position-absolute end-0 link-create bi bi-patch-plus" asp-action="_Create"
+               asp-controller="Advertisement" asp-area="Manager" asp-route-businessId="@Model.Item2"
+               data-bs-toggle="modal" data-bs-target="#modal-form"></a>
+        </div>
+    </div>
+    @if (Model.Item1.Any())
+    {
+        <section class="col-md-12 p-4 section slider">
+            @foreach (var advertisement in Model.Item1)
+            {
+                <div class="advertisement-slider-item">
+                    <div class="advertisement-inner">
+                        <form asp-action="Delete" asp-controller="Advertisement" asp-area="Manager" method="post">
+                            <input type="hidden" name="advertisementId" value="@advertisement.AdvertisementId" />
+                            <button class="remove-advertisement input-link link-delete bi bi-patch-minus" type="submit"></button>
+                        </form>
+                        <a class="edit-advertisement modal-link link-edit bi bi-patch-question" asp-action="_Edit"
+                   asp-controller="Advertisement" asp-area="Manager" asp-route-advertisementId="@advertisement.AdvertisementId"
+                   asp-route-businessId="@Model.Item2" data-bs-toggle="modal" data-bs-target="#modal-form"></a>
+                        <div class="advertisement-imagebox">
+                            <div class="advertisement-imagebox">
+                                <div class="advertisement-image-bg" style="background-image: url(/@advertisement.ImagePath.Replace(@"\","/"));"></div>
+                            </div>
+                        </div>
+                        <div class="position-absolute bottom-0 mb-2 fw-bold px-2 py-0">
+                            <a class="text-dark" asp-action="Details"
+                       asp-controller="Advertisement" asp-area="" asp-route-advertisementId="@advertisement.AdvertisementId">@advertisement.Name</a>
+                        </div>
+                        <a class="add-service modal-link link-create bi bi-patch-plus" asp-action="_AddService"
+                   asp-controller="Advertisement" asp-area="Manager" asp-route-advertisementId="@advertisement.AdvertisementId"
+                   asp-route-businessId="@Model.Item2" data-bs-toggle="modal" data-bs-target="#modal-form"></a>
+                        <div class="discount">
+                            <div class="discount-value">
+                                @advertisement.Discount%
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </section>
+
+    }
+    else
+    {
+        <section class="section">
+            <div class="text-center h-4 d-flex justify-content-center align-items-center" style="height: 100px;">
+                There are no advertisements in the business.
+            </div>
+        </section>
+    }
+</section>

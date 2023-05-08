@@ -1,0 +1,63 @@
+﻿@model WorkerViewModel
+@{
+    ViewData["Title"] = "Worker";
+}
+
+<section class="d-flex flex-column justify-content-center align-items-center">
+    <section class="main-data-worker col-md-10 mt-2">
+        <partial name="_Manage" />
+    </section>
+    <section class="images-business col-md-10">
+        <section>
+            <section class="section-title col-md-12">
+                <div class="h3 text-center position-relative">
+                    Images
+                    <div>
+                        <a class="modal-link position-absolute top-0 end-0 link-create bi bi-file-earmark-plus" asp-action="_AddImages"
+                           asp-controller="Account" asp-area="Worker" asp-route-directory="@Model.ImagesPath"
+                           data-bs-toggle="modal" data-bs-target="#modal-form"></a>
+                    </div>
+                </div>
+            </section>
+            @if (Model.ImagesForView.Any())
+            {
+                <section class="section slider p-4">
+                    @foreach (var image in Model.ImagesForView)
+                    {
+                        <div class="d-flex justify-content-center">
+                            <div class="business-image-inner">
+                                <div class="business-image position-relative" style="background-image: url(/@image);">
+                                    <form asp-action="RemoveImage" asp-controller="Account" asp-area="Worker" method="post">
+                                        <input type="hidden" value="@image" name="directory"/>
+                                        <button type="submit" class="position-absolute end-0 me-2 mt-2 fs-4 link-delete input-link bi bi-x-circle-fill"></button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+                </section>
+            }
+            else
+            {
+                <section class="section p-4 text-center">
+                    There are no images
+                </section>
+            }
+        </section>
+    </section>
+    <section class="schedule-list col-md-10">
+        <partial name="../Schedule/_List" model="@(Model.Schedule, Model.WorkerId)" />
+    </section>
+    <section class="services-list col-md-10">
+        <partial name="../Service/_List" model="@(Model.Services, ViewBag.Services as List<Service>)" />
+    </section>
+    <section class="records-list col-md-10">
+        <partial name="../Record/_List" model="@Model.Records" />
+    </section>
+    <section class="reviews-list col-md-10">
+        <partial name="../Review/_List" model="@Model.Reviews" />
+    </section>
+
+</section>
+

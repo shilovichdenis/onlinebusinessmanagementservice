@@ -1,0 +1,73 @@
+﻿@using Microsoft.AspNetCore.Identity;
+@inject SignInManager<IdentityUser> SignInManager
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <partial name="_CssPartial" />
+    <title>@ViewData["Title"] - OnlineBusinessManagementService</title>
+</head>
+<body>
+    <header>
+        <nav class="text-white navbar navbar-expand-sm navbar-toggleable-sm navbar-light box-shadow mb-3">
+            <div class="container">
+                <a class="text-white navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                        @if (SignInManager.IsSignedIn(User))
+                        {
+                            @if (User.IsInRole("Manager"))
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-white" asp-area="Manager" asp-action="Index" asp-controller="Business">Manage Business</a>
+                                </li>
+                            }
+                            else
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-white" asp-area="" asp-action="Create" asp-controller="Business">Create Business</a>
+                                </li>
+                            }
+                            if (User.IsInRole("Worker"))
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-white" asp-area="Worker" asp-action="Index" asp-controller="Account">Manage Worker Account</a>
+                                </li>
+                            }
+                        }
+                    </ul>
+                    <partial name="_LoginPartial" />
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <section>
+            <div style="height: auto;" id="modal-form" class="modal"
+                 aria-hidden="true"
+                 role="dialog"
+                 data-keyboard="true">
+                <div id="modal-dialog" class="modal-dialog h-100" style="max-width: 45vw">
+                </div>
+            </div>
+        </section>
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="footer text-white">
+        <div class="container">
+            &copy; 2023 - OnlineBusinessManagementService
+        </div>
+    </footer>
+    <partial name="_ScriptsPartial" />
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,30 @@
+{
+  "name": "OnlineBusinessManagementService",
+  "authors": [
+    "\"\""
+  ],
+  "description": "Online service for organizing appointment services and business management",
+  "main": "",
+  "keywords": [
+    "Online",
+    "Service",
+    "Business",
+    "Management"
+  ],
+  "license": "MIT",
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^5.2.3",
+    "jquery": "^3.6.4",
+    "jquery-validation": "^1.19.5",
+    "jquery-validation-unobtrusive": "^4.0.0"
+  }
+}

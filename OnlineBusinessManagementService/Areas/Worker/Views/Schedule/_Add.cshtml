@@ -1,0 +1,40 @@
+﻿@model ScheduleViewModel
+<section class="modal-content pb-3">
+    <section class="text-center modal-title position-relative h3 py-2 section-title mb-3">
+        Add Schedule
+        <a class="text-white position-absolute end-0 text-decoration-none me-4" href="#" data-bs-dismiss="modal">&times</a>
+    </section>
+    <section>
+        <div class="d-flex justify-content-center align-items-center">
+            <div class="col-md-10">
+                <form asp-action="Add" asp-controller="Schedule" asp-area="Worker" method="post">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" asp-for="WorkerId" value="@ViewBag.WorkerId" />
+                    <div class="form-floating mb-3">
+                        <input type="date" asp-for="Day" class="form-control" placeholder="Day" autocomplete="off" aria-required="true" />
+                        <label asp-for="Day">Name</label>
+                        <span asp-validation-for="Day" class="text-danger"></span>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <select asp-for="StartTime" class="form-control" asp-items="@ViewBag.StartTime"></select>
+                        <label asp-for="StartTime">Start Time</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <select asp-for="EndTime" class="form-control" asp-items="@ViewBag.EndTime"></select>
+                        <label asp-for="EndTime">End Time</label>
+                    </div>
+                    <div class="form-group mb-3 d-flex justify-content-evenly">
+                        <input type="submit" value="Add Schedule" class="btn btn-create col-md-4" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+</section>
+
+<script src="~/js/site.js" asp-append-version="true"></script>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

@@ -1,0 +1,52 @@
+﻿@model LoginViewModel
+
+@{
+    ViewData["Title"] = "Log in";
+}
+<section class="mt-4 d-flex flex-column justify-content-center align-items-center">
+    <section class="col-md-6">
+        <section>
+            <section class="section-title col-md-12">
+                <div class="h3 text-center position-relative">
+                    Log In
+                    <a class="text-white h3 position-absolute top-0 end-0 text-decoration-none text-black" href="#" data-bs-dismiss="modal">&times</a>
+                </div>
+            </section>
+        </section>
+        <section class="col-md-12 d-flex justify-content-center section py-4 px-0">
+            <section class="col-md-10 d-flex flex-column justify-content-start">
+                <form asp-action="Login" asp-controller="Account" asp-area="Identity" method="post">
+                    <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+                    <div class="form-floating mb-3 text-black">
+                        <input asp-for="Email" class="form-control" autocomplete="username" aria-required="true" placeholder="name@example.com" />
+                        <label asp-for="Email" class="form-label">Email</label>
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+                    <div class="form-floating mb-3 text-black">
+                        <input asp-for="Password" class="form-control" autocomplete="current-password" aria-required="true" placeholder="password" />
+                        <label asp-for="Password" class="form-label">Password</label>
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                    </div>
+                    <div class="checkbox mb-3 text-black">
+                        <label class="btn-dark" asp-for="RememberMe" class="form-label">
+                            <input class="form-check-input" asp-for="RememberMe" />
+                            @Html.DisplayNameFor(m => m.RememberMe)
+                        </label>
+                    </div>
+                    <div>
+                        <button id="login-submit" type="submit" class="w-100 btn btn-lg btn-dark">Log in</button>
+                    </div>
+                    <div class="text-center mt-3">
+                        <p>
+                            <a class="text-dark text-decoration-underline" asp-action="Register" asp-controller="Account" asp-area="Identity" asp-route-returnUrl="@ViewBag.ReturnUrl">Register as a new user</a>
+                        </p>
+                    </div>
+                </form>
+            </section>
+        </section>
+    </section>
+</section>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    }

@@ -1,0 +1,53 @@
+﻿@using System.Globalization;
+@model (List<Schedule>, int)
+
+<section>
+    <div class="section-title">
+        <div class="h3 text-center position-relative">
+            Schedule
+            <a class="modal-link position-absolute end-0 link-create bi bi-clipboard-plus" asp-action="_Add"
+               asp-controller="Schedule" asp-area="Worker" asp-route-workerId="@Model.Item2"
+               data-bs-toggle="modal" data-bs-target="#modal-form"></a>
+        </div>
+    </div>
+    <div class="col-md-12 p-4 section-table section-scroll">
+        <table class="table col-md-10 table-services align-middle">
+            <tbody>
+                @if (Model.Item1.Any())
+                {
+                    @foreach (var schedule in Model.Item1.GroupBy(m => m.DateTime.Date.ToShortDateString()))
+                    {
+                        <tr>
+                            <td class="fw-bold">
+                                @schedule.First().DateTime.ToString("ddd", new CultureInfo("en-EN")).ToUpper(), <br /> @schedule.First().DateTime.ToString("M",new CultureInfo("en-EN"))
+                            </td>
+                            <td>
+                                <div class="schedule-time">
+                                    @foreach (var time in schedule)
+                                    {
+                                        <div class="time">
+                                            <div>
+                                                @time.DateTime.ToString("t")
+                                            </div>
+                                            <form asp-action="Remove" asp-controller="Schedule" asp-area="Worker" method="post">
+                                                <input type="hidden" name="scheduleId" value="@time.Id" />
+                                                <button type="submit" class="bi bi-x input-link link-delete"></button>
+                                            </form>
+                                        </div>
+                                    }
+                                </div>
+                            </td>
+                        </tr>
+
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td class="text-center" colspan="2">You don't have a schedule</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</section>

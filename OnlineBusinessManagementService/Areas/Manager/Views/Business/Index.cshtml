@@ -1,0 +1,75 @@
+﻿@model BusinessViewModel
+@{
+    ViewData["Title"] = "Business";
+}
+
+<section class="d-flex flex-column justify-content-center align-items-center">
+    <section class="main-data-business col-md-10 mt-2">
+        <partial name="_Manage" />
+    </section>
+    <section class="images-business col-md-10">
+        <section>
+            <section class="section-title col-md-12">
+                <div class="h3 text-center position-relative">
+                    Images
+                    <div>
+                        <a class="modal-link position-absolute top-0 end-0 link-create bi bi-file-earmark-plus" asp-action="_AddImages"
+                           asp-controller="Business" asp-area="Manager" asp-route-directory="@Model.ImagesPath"
+                           data-bs-toggle="modal" data-bs-target="#modal-form"></a>
+                    </div>
+                </div>
+            </section>
+            @if (Model.ImagesForView.Any())
+            {
+                <section class="section slider p-4">
+                    @foreach (var image in Model.ImagesForView)
+                    {
+                        <div class="d-flex justify-content-center">
+                            <div class="business-image-inner">
+                                <div class="business-image position-relative" style="background-image: url(/@image);">
+                                    <form asp-action="RemoveImage" asp-controller="Business" asp-area="Manager" method="post">
+                                        <input type="hidden" value="@image" name="directory" />
+                                        <button type="submit" class="position-absolute end-0 me-2 mt-2 fs-4 link-delete input-link bi bi-x-circle-fill"></button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+                </section>
+            }
+            else
+            {
+                <section class="section p-4 text-center">
+                    There are no images
+                </section>
+            }
+        </section>
+    </section>
+    <section class="advertisements-list col-md-10">
+        <partial name="../Advertisement/_List" model="@(Model.Advertisements, Model.BusinessId)" />
+    </section>
+    <section class="services-list col-md-10">
+        <partial name="../Service/_List" model="@(Model.Services, Model.BusinessId)" />
+    </section>
+    <section class="workers-list col-md-10">
+        <partial name="../Worker/_List" model="@(Model.Workers, Model.BusinessId)" />
+    </section>
+    <section class="reviews-list col-md-10">
+        <partial name="../Review/_List" model="@Model.Reviews" />
+    </section>
+    <a asp-action="_List" asp-controller="Client" asp-area="Manager" asp-route-businessId="@Model.BusinessId" class="btn-create clients-list col-md-10">
+        <div class="section-title">
+            <div class="h3 text-center position-relative">
+                Clients
+            </div>
+        </div>
+    </a>
+    <section class="col-md-10 d-flex justify-content-center mt-3">
+        <form class="col-md-12" asp-action="Delete" asp-controller="Business" asp-area="Manager">
+            <input type="hidden" name="businessId" value="@Model.BusinessId" />
+            <button class="col-md-12 delete-business btn btn-delete">Delete Business</button>
+        </form>
+    </section>
+</section>
+

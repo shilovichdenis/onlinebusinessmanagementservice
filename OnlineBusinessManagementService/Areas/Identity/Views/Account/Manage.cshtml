@@ -1,0 +1,67 @@
+﻿@model UserViewModel
+@{
+    ViewData["Title"] = "Manage";
+}
+<section class="d-flex flex-column justify-content-center align-items-center">
+    <section class="col-md-10 mt-2">
+        <section>
+            <section class="section-title col-md-12">
+                <div class="h3 text-center">
+                    Information
+                </div>
+            </section>
+            <section class="col-md-12 d-flex justify-content-evenly section py-4 px-0">
+                <section class="left-part-form col-md-5 d-flex justify-content-center">
+                    <div class="photo-inner">
+                        <img src="/@Model.PhotoPath.Replace(@"\","/")" />
+                    </div>
+                </section>
+                <section class="right-part-form col-md-5 position-relative d-flex flex-column justify-content-start">
+                    <form asp-action="Manage" asp-controller="Account" asp-area="Identity" asp-route-returnUrl="@ViewBag.ReturnUrl" method="post">
+                        <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+                        <input asp-for="UserId" hidden />
+                        <div class="form-floating mb-3">
+                            <input asp-for="Name" class="form-control" autocomplete="off" aria-required="true" placeholder="Name" />
+                            <label asp-for="Name">Name</label>
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input asp-for="SurName" class="form-control" autocomplete="off" aria-required="true" placeholder="SurName" />
+                            <label asp-for="SurName">SurName</label>
+                            <span asp-validation-for="SurName" class="text-danger"></span>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="date" asp-for="DateOfBirth" class="form-control" autocomplete="off" aria-required="true" placeholder="DateOfBirth" />
+                            <label asp-for="DateOfBirth">DateOfBirth</label>
+                            <span asp-validation-for="DateOfBirth" class="text-danger"></span>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input asp-for="Email" class="form-control" autocomplete="off" aria-required="true" placeholder="Email" />
+                            <label asp-for="Email">Email</label>
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input asp-for="PhoneNumber" class="form-control" autocomplete="off" aria-required="true" placeholder="PhoneNumber" />
+                            <label asp-for="PhoneNumber">PhoneNumber</label>
+                            <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                        </div>
+                        <div class="form-group mb-3 text-center align-middle">
+                            <input hidden asp-for="Photo" class="logo-file-input" id="logo-file">
+                            <label class="btn btn-file form-control" for="logo-file">Choose Photo</label>
+                        </div>
+                        <div class="form-group mb-3 text-center align-middle">
+                            <input type="submit" value="Edit Account" class="form-control btn btn-edit" />
+                        </div>
+                    </form>
+                </section>
+            </section>
+        </section>
+    </section>
+    <section class="col-md-10">
+        <partial name="../Record/_List" model="@ViewBag.Records as List<RecordViewModel>" />
+    </section>
+</section>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

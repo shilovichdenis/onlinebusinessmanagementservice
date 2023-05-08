@@ -1,0 +1,58 @@
+﻿@using System.Globalization;
+@model List<RecordViewModel>
+
+<section>
+    <div class="section-title">
+        <div class="h3 text-center position-relative">
+            Records
+        </div>
+    </div>
+    <div class="col-md-12 p-4 section-table section-scroll">
+        <table class="table text-center col-md-10 table-services align-middle">
+            <tbody>
+                @if (Model.Any())
+                {
+                    @foreach (var record in Model)
+                    {
+                        <tr>
+                            <td class="col-md-auto text-start">
+                                <div class="fw-bold">
+                                    @record.User.SurName @record.User.Name
+                                </div>
+                                <div class="text-secondary">
+                                    Phone: @record.User.PhoneNumber
+                                    <br/>
+                                    Email: @record.User.Email
+                                </div>
+                            </td>
+                            <td class="col-md-2">
+                                @if (record.TimeSchedule != null)
+                                {
+                                    @record.TimeSchedule.DateTime.ToString("M",new CultureInfo("en-EN")) @: @record.TimeSchedule.DateTime.ToString("t", new CultureInfo("en-EN"))
+                                }
+                            </td>
+                            <td class="col-md-2">
+                                @record.TotalPrice BYN
+                            </td>
+                            <td class="col-md-2">
+                                <a class="record-edit-link" asp-action="EditRecord"
+                           asp-controller="Record" asp-area="Worker" asp-route-recordId="@record.RecordId">
+                                    <i class="bi bi-journal-text"></i>
+                                    <span>
+                                        Edit
+                                    </span>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="4">There are no records.</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</section>

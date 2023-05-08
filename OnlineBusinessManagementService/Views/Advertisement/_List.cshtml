@@ -1,0 +1,44 @@
+﻿@model List<AdvertisementViewModel>
+<link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+
+<section>
+    <div class="section-title">
+        <div class="h3 text-center position-relative">
+            Advertisements
+        </div>
+    </div>
+    <section class="col-md-12 p-4 section slider">
+        @foreach (var advertisement in Model)
+        {
+            <div class="advertisement-slider-item">
+
+                <div class="advertisement-inner">
+                    <div class="advertisement-imagebox">
+                        <div class="advertisement-image-bg" style="background-image: url(/@advertisement.ImagePath.Replace(@"\","/"));"></div>
+                    </div>
+                    <div class="discount">
+                        <div class="discount-value">
+                            @advertisement.Discount%
+                        </div>
+                    </div>
+                    <a class="advertisement-details modal-link" asp-action="Details" asp-controller="Advertisement"
+                   asp-area="" asp-route-advertisementId="@advertisement.AdvertisementId" data-bs-toggle="modal" data-bs-target="#modal-form">
+                        <div class="advertisement-info">
+                            <img src="../@advertisement.Business.LogoPath.Replace("\"","/")" />
+                            @advertisement.Business.Name
+                        </div>
+                        <div class="advertisement-name">
+                            @advertisement.Name
+                        </div>
+                        <div class="advertisement-name-hover">
+                            @advertisement.Name
+                        </div>
+                        <div class="advertisement-time">
+                            до @advertisement.EndDate.ToString("M")
+                        </div>
+                    </a>
+                </div>
+            </div>
+        }
+    </section>
+</section>

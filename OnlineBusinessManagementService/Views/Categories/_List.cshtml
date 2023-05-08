@@ -1,0 +1,27 @@
+﻿@model List<CategoryOfService>
+
+<section>
+    <div class="section-title">
+        <div class="h3 text-center position-relative">
+            Categories
+        </div>
+    </div>
+    <section class="col-md-12 p-4 section category-slider">
+        @foreach (var category in Model)
+        {
+            <div class="category-slider-item">
+                <div class="category-inner">
+                    <div class="category-imagebox">
+                        <div class="category-image-bg" style="background-image: url(/@category.ImagePath.Replace(@"\","/"));"></div>
+                    </div>
+                    <a class="category-details" asp-action="Index" asp-controller="Business"
+                   asp-area="" asp-route-categoryId="@category.Id">
+                        <div class="category-name">
+                            @category.Name
+                        </div>
+                    </a>
+                </div>
+            </div>
+        }
+    </section>
+</section>

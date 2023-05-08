@@ -1,0 +1,207 @@
+﻿@model WorkerViewModel
+@{
+    ViewData["Title"] = "Worker";
+}
+
+<section class="d-flex flex-column justify-content-center align-items-center">
+    <section class="main-data-worker col-md-10 mt-2">
+        <section>
+            <section class="section-title col-md-12">
+                <div class="h3 text-center">
+                    Information
+                </div>
+            </section>
+            <section class="col-md-12 d-flex justify-content-evenly section py-4 px-0">
+                <section class="left-part-form col-md-5 d-flex justify-content-center">
+                    <div class="photo-inner">
+                        <div class="photo" style="background-image: url(../@Model.User.PhotoPath.Replace("\\","/"));"></div>
+                    </div>
+                </section>
+                <section class="right-part-form col-md-5 position-relative d-flex flex-column justify-content-start">
+                    <div class="form-floating col-md-12 mb-3">
+                        <input disabled value="@Model.User.SurName @Model.User.Name" class="form-control" />
+                        <label asp-for="User.SurName">Personal Data</label>
+                    </div>
+                    <div class="form-floating col-md-12 mb-3">
+                        <input disabled value="@Model.User.PhoneNumber" class="form-control" />
+                        <label asp-for="User.PhoneNumber">Phone Number</label>
+                    </div>
+                    <div class="form-floating col-md-12 mb-3">
+                        <input disabled value="@Model.User.Email" class="form-control" />
+                        <label asp-for="User.Email">Email</label>
+                    </div>
+                    <div class="form-floating col-md-12 mb-3">
+                        <input disabled value="@Model.Description" class="form-control" />
+                        <label asp-for="Description">Description</label>
+                    </div>
+                    <div class="form-floating col-md-12 mb-3">
+                        <input disabled value="@Model.Rating" class="form-control" />
+                        <label asp-for="Rating">Rating</label>
+                    </div>
+                </section>
+            </section>
+        </section>
+    </section>
+    @if (Model.ImagesForView.Any())
+    {
+        <section class="images-worker col-md-10">
+            <section>
+                <section class="section-title col-md-12">
+                    <div class="h3 text-center">
+                        Images
+                    </div>
+                </section>
+                <section class="section slider p-4">
+                    @foreach (var image in Model.ImagesForView)
+                    {
+                        <div class="d-flex justify-content-center">
+                            <div class="worker-image-inner">
+                                <div class="worker-image" style="background-image: url(/@image);">
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+                </section>
+            </section>
+        </section>
+    }
+    <section class="services-list col-md-10">
+        <section>
+            <div class="section-title col-md-12">
+                <div class="h3 text-center position-relative">
+                    Services
+                </div>
+            </div>
+            <div class="col-md-12 p-4 section-table section-scroll">
+                <table class="table text-center col-md-10 table-services align-middle">
+                    <tbody>
+                        @if (Model.Services.Any())
+                        {
+                            @foreach (var wService in Model.Services)
+                            {
+                                <tr>
+                                    <td class="col-md-1">
+                                        <img src="../@wService.Service.ImagePath.Replace("\"", "/")" style="height: 50px; width: 50px;" />
+                                    </td>
+                                    <td class="col-md-auto text-start">
+                                        <div class="fw-bold">
+                                            @wService.Service.Name
+                                        </div>
+                                        <div class="text-secondary">
+                                            @wService.Service.Category.Name
+                                        </div>
+                                    </td>
+                                    <td class="col-md-1">
+                                        @wService.Service.Price BYN
+                                    </td>
+                                    <td class="col-md-1">
+                                        @wService.Service.Time
+                                    </td>
+                                    <td class="col-md-1">
+                                        <form asp-action="CreateRecord"
+                                      asp-controller="Record" asp-area="" method="post">
+                                            <input type="hidden" name="wServiceId" value="@wService.Id" />
+                                            <input type="hidden" name="workerId" value="@Model.WorkerId" />
+                                            <button class="record-create-link input-link" type="submit">
+                                                <i class="bi bi-journal-text"></i>
+                                                <span>
+                                                    Book
+                                                </span>
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                        else
+                        {
+                            <tr>
+                                <td colspan="5">Worker don't have services</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </section>
+    <section class="reviews-list col-md-10">
+        <section>
+            <div class="section-title col-md-12">
+                <div class="h3 text-center position-relative">
+                    Reviews
+                </div>
+            </div>
+            <section class="col-md-12 p-4 section">
+                <section>
+                    <section class="col-md-12 d-flex justify-content-center">
+                        <div class="col-md-10 review-form">
+                            <form asp-action="AddReview" asp-controller="Worker" method="post">
+                                <div class="review-title">
+                                    <div class="h4 fw-bold">
+                                        Write a review.
+                                    </div>
+                                    <div class="stars">
+                                        @for (int i = 0; i < 5; i++)
+                                        {
+                                            <a class="star bi bi-star" id="star-@i" href="#">
+                                            </a>
+                                        }
+                                    </div>
+                                </div>
+                                <input type="hidden" value="@Model.WorkerId" name="workerId" />
+                                <input id="ratingReview" type="hidden" value="0" name="rating" />
+                                <div class="form-floating mb-3">
+                                    <textarea name="description" class="form-control" placeholder="Description"></textarea>
+                                    <label>Description</label>
+                                </div>
+                                <div class="form-group mb-3">
+                                    <button type="submit" class="btn btn-create">Create Comment</button>
+                                </div>
+                            </form>
+                        </div>
+                    </section>
+                </section>
+                @if (Model.Reviews.Any())
+                {
+                    <section class="mt-5">
+                        <section class="col-md-12 section-scroll border-0 d-flex justify-content-center ">
+                            <div class="col-md-10">
+                                <table class="table text-center align-middle">
+                                    <tbody>
+                                        @foreach (var review in Model.Reviews)
+                                        {
+                                            <tr class="review">
+                                                <td class="col-md-1">
+                                                    <img src="../@review.User.PhotoPath.Replace("\"", "/")" class="review-photo" />
+                                                </td>
+                                                <td class="col-md-auto text-start">
+                                                    <div class="d-flex justify-content-center flex-column">
+                                                        <div class="d-flex justify-content-between">
+                                                            <div class="h5 fw-bold">@review.User.Name</div>
+                                                            <div class="">
+
+                                                                @for (int i = 0; i < review.Rating; i++)
+                                                                {
+                                                                    <i class="bi bi-star-fill" style="color:#fcdb03"></i>
+                                                                }
+                                                            </div>
+                                                        </div>
+                                                        <div class="review-description">
+                                                            @review.Description
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </section>
+                    </section>
+                }
+            </section>
+        </section>
+    </section>
+</section>
+

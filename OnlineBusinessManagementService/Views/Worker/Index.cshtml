@@ -1,0 +1,40 @@
+﻿@model List<WorkerViewModel>
+@{
+    ViewData["Title"] = "Workers";
+}
+<section class="d-flex justify-content-center">
+    <section class="col-md-10">
+        <div class="section-title">
+            <div class="h3 text-center position-relative">
+                Workers
+            </div>
+        </div>
+        @if (Model.Any())
+        {
+            <div class="col-md-12 p-4 section section-grid">
+                @foreach (var worker in Model)
+                {
+                    <div class="worker-inner">
+                        <div class="worker-photo">
+                            <a asp-action="Details" asp-controller="Worker" asp-area="" asp-route-workerId="@worker.WorkerId" class="worker-name">
+                                <img src="../@worker.User.PhotoPath" />
+                            </a>
+                        </div>
+                        <div class="worker-info">
+                            <a asp-action="Details" asp-controller="Worker" asp-area="" asp-route-workerId="@worker.WorkerId" class="worker-name">@worker.User.Name</a>
+                            <div class="worker-description">@worker.Description</div>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+        else
+        {
+            <section class="section">
+                <div class="text-center h-4 d-flex justify-content-center align-items-center" style="height: 100px;">
+                    There are no workers.
+                </div>
+            </section>
+        }
+    </section>
+</section>

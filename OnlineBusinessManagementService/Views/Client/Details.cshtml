@@ -1,0 +1,61 @@
+﻿@model Client
+@{
+    ViewData["Title"] = "Client";
+}
+
+<section class="d-flex flex-column justify-content-center align-items-center">
+    <section class="col-md-10 mt-2">
+        <section>
+            <section class="section-title col-md-12">
+                <div class="h3 text-center position-relative">
+                    Information
+                    <a class="position-absolute end-0 me-4 text-white" href="#" data-bs-dismiss="modal">&times</a>
+                </div>
+            </section>
+            <section class="col-md-12 d-flex justify-content-evenly section py-4 px-0">
+                <section class="left-part-form col-md-5 d-flex justify-content-start align-items-start">
+                    <div class="photo-inner">
+                        <div class="photo" style="background-image: url(/@Model.User.PhotoPath.Replace(@"\", "/"));"></div>
+                    </div>
+                </section>
+                <section class="right-part-form col-md-5 position-relative d-flex flex-column justify-content-start">
+                    <div class="form-floating col-md-12 mb-3">
+                        <input disabled value="@Model.User.SurName @Model.User.Name" class="form-control" />
+                        <label>Personal Data</label>
+                    </div>
+                    <div class="form-floating col-md-12 mb-3">
+                        <input disabled value="@Model.User.PhoneNumber" class="form-control" />
+                        <label>Phone Number</label>
+                    </div>
+                    <div class="form-floating col-md-12 mb-3">
+                        <input disabled value="@Model.User.Email" class="form-control" />
+                        <label>Email</label>
+                    </div>
+                    <div class="form-floating col-md-12 mb-3">
+                        <input disabled value="@Model.User.PhoneNumber" class="form-control" />
+                        <label>Description</label>
+                    </div>
+                    <div class="form-floating col-md-12 mb-3">
+                        <input disabled value="@Model.Sale" class="form-control" />
+                        <label>Rating</label>
+                    </div>
+                    @if (Model.inBlacklist)
+                    {
+                        <div class="form-floating col-md-12 mb-3">
+                            <input disabled value="YES" class="form-control" />
+                            <label>In Blacklist</label>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="form-floating col-md-12 mb-3">
+                            <input disabled value="NO" class="form-control" />
+                            <label>In Blacklist</label>
+                        </div>
+                    }
+                </section>
+            </section>
+        </section>
+    </section>
+</section>
+

@@ -1,0 +1,82 @@
+﻿@model RecordViewModel
+
+<section class="modal-content pb-3">
+    <section class="text-center modal-title position-relative h3 py-2 section-title mb-3">
+        Record
+        <a class="position-absolute end-0 text-decoration-none me-4" href="#" data-bs-dismiss="modal">&times</a>
+    </section>
+    <section>
+        <div class="d-flex justify-content-center align-items-center flex-column">
+            <div class="col-md-10 p-4 section">
+                <table class="table text-center col-md-10 table-services align-middle">
+                    <tbody>
+                        @if (Model.Services.Any())
+                        {
+                            @foreach (var service in Model.Services.Select(s => s.Service))
+                            {
+                                <tr>
+                                    <td class="col-md-1">
+                                        <img src="../@service.Service.ImagePath.Replace("\"", "/")" style="height: 50px; width: 50px;" />
+                                    </td>
+                                    <td class="col-md-auto text-start">
+                                        <div class="fw-bold">
+                                            @service.Service.Name
+                                        </div>
+                                        <div class="text-secondary">
+                                            @service.Service.Category.Name
+                                        </div>
+                                    </td>
+                                    <td class="col-md-1">
+                                        @service.Service.Price BYN
+                                    </td>
+                                    <td class="col-md-1">
+                                        @service.Service.Time
+                                    </td>
+                                    <td class="col-md-1">
+                                        <form asp-action="RemoveService" asp-controller="Record" asp-area="Manager" method="post">
+                                            <input type="hidden" name="recordId" value="@Model.RecordId" />
+                                            <input type="hidden" name="wServiceId" value="@service.Id" />
+                                            <button class="bi bi-trash link-delete"></button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                        else
+                        {
+                            <tr>
+                                <td colspan="5">There are no services in the business.</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-md-10">
+                <form asp-action="Create" asp-controller="Record" asp-area="" method="post">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" asp-for="UserId" />
+                    <input type="hidden" asp-for="WorkerId" />
+                    <input type="hidden" asp-for="TimeScheduleId" />
+                    <div class="form-floating mb-3">
+                        <input asp-for="TotalPrice" class="form-control" placeholder="TotalPrice" />
+                        <label asp-for="TotalPrice">TotalPrice</label>
+                        <span asp-validation-for="TotalPrice" class="text-danger"></span>
+                    </div>
+                    <div class="form-group mb-3 d-flex justify-content-evenly">
+                        <input type="submit" value="Add Record" class="btn btn-create col-md-4" />
+                        <form asp-action="Delete" asp-controller="Record" asp-area="" method="post">
+                            <input type="hidden" name="recordId" value="@Model.RecordId" />
+                            <button class="btn btn-cancel col-md-4" type="submit">Cancel</button>
+                        </form>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+</section>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

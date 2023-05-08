@@ -1,0 +1,57 @@
+﻿@model ServiceViewModel
+<section class="modal-content pb-3">
+    <section class="text-center modal-title position-relative h3 py-2 section-title mb-3">
+        Add Service
+        <a class="text-white position-absolute end-0 text-decoration-none me-4" href="#" data-bs-dismiss="modal">&times</a>
+    </section>
+    <section>
+        <div class="d-flex justify-content-center align-items-center">
+            <div class="col-md-10">
+                <form asp-action="Add" asp-controller="Service" asp-area="Manager" method="post" enctype="multipart/form-data">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" asp-for="BusinessId" value="@ViewBag.BusinessId" />
+                    <input type="hidden" asp-for="ImagePath" class="imagespath-file-input"/>
+                    <div class="form-floating mb-3">
+                        <select asp-for="CategoryId" class="form-control" asp-items="@ViewBag.Categories"></select>
+                        <label asp-for="CategoryId">Category</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input asp-for="Name" class="form-control" placeholder="Name" autocomplete="off" aria-required="true" />
+                        <label asp-for="Name">Name</label>
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input asp-for="Price" class="form-control" placeholder="Price" autocomplete="off" aria-required="true" />
+                        <label asp-for="Price">Price</label>
+                        <span asp-validation-for="Price" class="text-danger"></span>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input asp-for="Time" class="form-control" placeholder="Time" autocomplete="off" aria-required="true" />
+                        <label asp-for="Time">Time</label>
+                        <span asp-validation-for="Time" class="text-danger"></span>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input class="form-control imagespath-file-input" placeholder="Image" disabled/>
+                        <label asp-for="ImagePath" class="images-file-label">Image</label>
+                        <span asp-validation-for="ImagePath" class="text-danger"></span>
+                    </div>
+                    <div class="form-group mb-3">
+                        <input hidden asp-for="Image" class="images-file-input" id="images-file">
+                        <label class="btn btn-file form-control" for="images-file">Choose Image</label>
+                    </div>
+                    <div class="form-group mb-3 d-flex justify-content-evenly">
+                        <input type="submit" value="Add Service" class="btn btn-create col-md-4" />
+                        <a class="btn btn-cancel col-md-4" href="#" data-bs-dismiss="modal">Cancel</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+</section>
+
+<script src="~/js/site.js" asp-append-version="true"></script>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

@@ -1,0 +1,68 @@
+﻿@model (List<WorkerServices>, List<Service>)
+@{
+    var services = new SelectList(Model.Item2, "Id", "Name");
+}
+<section>
+    <div class="section-title">
+        <div class="h3 text-center position-relative">
+            Services
+        </div>
+    </div>
+    <div class="col-md-12 p-4 section-table section-scroll">
+        <form asp-action="AddService" asp-controller="Account" asp-area="Worker" method="post">
+            <div class="form-floating mb-3">
+                <div class="form-floating mb-3">
+                    <select name="serviceId" class="form-control" asp-items="@services"></select>
+                    <label>Service</label>
+                </div>
+            </div>
+            <div class="form-group mb-3 d-flex justify-content-end">
+                <input type="submit" value="Add Service" class="btn btn-create col-md-4" />
+            </div>
+        </form>
+        <table class="table text-center col-md-10 table-services align-middle">
+            <tbody>
+                @if (Model.Item1.Any())
+                {
+                    @foreach (var wService in Model.Item1)
+                    {
+                        <tr>
+                            <td class="col-md-1">
+                                <img src="/@wService.Service.ImagePath.Replace(@"\","/")" style="height: 50px; width: 50px;" />
+                            </td>
+                            <td class="col-md-auto text-start">
+                                <div class="fw-bold">
+                                    @wService.Service.Name
+                                </div>
+                                <div class="text-secondary">
+                                    @wService.Service.Category.Name
+                                </div>
+                            </td>
+                            <td class="col-md-1">
+                                @wService.Service.Price BYN
+                            </td>
+                            <td class="col-md-1">
+                                @wService.Service.Time
+                            </td>
+                            <td class="col-md-1">
+                                <div class="link-div">
+                                    <form asp-action="RemoveService" asp-controller="Account" asp-area="Worker" method="post">
+                                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                        <input type="hidden" name="serviceId" value="@wService.Service.Id" />
+                                        <button class="input-link link-delete bi bi-trash" type="submit"></button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="5">You don't have services</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</section>

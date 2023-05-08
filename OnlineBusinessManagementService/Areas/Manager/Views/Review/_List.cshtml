@@ -1,0 +1,56 @@
+﻿@model List<BusinessReviewViewModel>
+
+<section>
+    <div class="section-title">
+        <div class="h3 text-center position-relative">
+            Reviews
+        </div>
+    </div>
+
+    @if (Model.Any())
+    {
+        <section class="col-md-12 p-4 section-table section-scroll">
+            <table class="table text-center align-middle">
+                <tbody>
+                    @foreach (var review in Model)
+                    {
+                        <tr class="review">
+                            <td class="col-md-1">
+                                <img src="/@review.User.PhotoPath.Replace(@"\", "/")" class="review-photo" />
+                            </td>
+                            <td class="col-md-auto text-start">
+                                <div class="d-flex justify-content-center flex-column">
+                                    <div class="d-flex justify-content-between">
+                                        <div class="h6 fw-bold">@review.User.Name</div>
+                                        <div class="">
+                                            @for (int i = 0; i < review.Rating; i++)
+                                            {
+                                                <i class="bi bi-star-fill" style="color:#fcdb03"></i>
+                                            }
+                                        </div>
+                                    </div>
+                                    <div class="review-description position-relative">
+                                        @review.Description
+                                        <form asp-action="DeleteReview" asp-controller="Business" asp-area="Manager" method="post">
+                                            <input type="hidden" name="reviewId" value="@review.BusinessReviewId" />
+                                            <button class="position-absolute bottom-0 end-0 me-2 mb-2 input-link link-delete bi bi-trash" type="submit"></button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </section>
+    }
+    else
+    {
+        <section>
+            <div class="section col-md-12 text-center d-flex justify-content-center align-items-center" style="height: 100px;">
+                Business don't have reviews
+            </div>
+        </section>
+
+    }
+</section>

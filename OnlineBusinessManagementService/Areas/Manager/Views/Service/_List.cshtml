@@ -1,0 +1,69 @@
+﻿@model (List<ServiceViewModel>, int)
+
+<section>
+    <div class="section-title">
+        <div class="h3 text-center position-relative">
+            Services
+            <a class="modal-link position-absolute end-0 link-create bi bi-journal-plus" asp-action="_Add"
+               asp-controller="Service" asp-area="Manager" asp-route-businessId="@Model.Item2"
+               data-bs-toggle="modal" data-bs-target="#modal-form">
+           </a>
+        </div>
+    </div>
+    <div class="col-md-12 p-4 section-table section-scroll">
+        <table class="table text-center col-md-10 table-services align-middle">
+            <tbody>
+                @if (Model.Item1.Any())
+                {
+                    @foreach (var service in Model.Item1)
+                    {
+                        <tr>
+                            <td class="col-md-1">
+                                <img src="/@service.ImagePath.Replace(@"\","/")" style="height: 50px; width: 50px;" />
+                            </td>
+                            <td class="col-md-auto text-start">
+                                <div class="fw-bold">
+                                    @service.Name
+                                </div>
+                                <div class="text-secondary">
+                                    @service.Category.Name
+                                </div>
+                            </td>
+                            <td class="col-md-1">
+                                @if (service.Advertisement != null)
+                                {
+                                    <div>@service.Price BYN</div>
+                                    <div class="text-decoration-line-through">@(service.Price * 100 / (100 - service.Advertisement.Discount)) BYN</div>
+                                }
+                                else
+                                {
+                                    @service.Price @:BYN
+                                }
+                            </td>
+                            <td class="col-md-1">
+                                @service.Time
+                            </td>
+                            <td class="col-md-1">
+                                <div class="link-div">
+                                    <a class="modal-link link-edit bi bi-journal-text" asp-action="_Edit"
+                               asp-controller="Service" asp-area="Manager" asp-route-serviceId="@service.ServiceId" asp-route-businessId="@Model.Item2" data-bs-toggle="modal" data-bs-target="#modal-form"></a>
+                                    <form class="d-flex justify-content-center align-items-center"  asp-action="Remove" asp-controller="Service" asp-area="Manager" method="post">
+                                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                        <input type="hidden" name="serviceId" value="@service.ServiceId" />
+                                        <button class="d-flex remove-service input-link link-delete bi bi-journal-x" type="submit"></button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="5">There are no services in the business.</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</section>

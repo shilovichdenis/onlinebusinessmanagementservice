@@ -1,0 +1,28 @@
+﻿@model HomeViewModel
+
+@inject SignInManager<IdentityUser> signInManager
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4 text-white fw-bold mb-3">Welcome</h1>
+</div>
+<section class="d-flex flex-column align-items-center">
+    <section class="categories-list col-md-10">
+        <partial name="../Categories/_List" model="@Model.Categories" />
+    </section>
+    <section class="advertisements-list col-md-10">
+        <partial name="../Advertisement/_List" model="@Model.Advertisements" />
+    </section>
+    @if (signInManager.IsSignedIn(User))
+    {
+        <section class="favbusinesses-list col-md-10">
+            <partial name="../Business/_ListFavorite" model="@ViewBag.FavoriteBusinesses" />
+        </section>
+    }
+    <section class="businesses-list col-md-10">
+        <partial name="../Business/_List" model="@Model.Businesses" />
+    </section>
+</section>

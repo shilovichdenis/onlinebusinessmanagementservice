@@ -1,0 +1,88 @@
+﻿@using Microsoft.AspNetCore.Identity;
+@model BusinessViewModel
+@inject UserManager<IdentityUser> UserManager
+
+@{
+    ViewData["Title"] = "Business";
+}
+<section class="d-flex flex-column justify-content-center align-items-center">
+    <section class="col-md-6 mt-2">
+        <section>
+            <section class="section-title col-md-12">
+                <div class="h3 text-center">
+                    Create Business
+                </div>
+            </section>
+        </section>
+        <section class="col-md-12 d-flex justify-content-center section py-4 px-0">
+            <section class="col-md-10 d-flex flex-column justify-content-start">
+            <form asp-action="Create" asp-controller="Business" asp-area="" method="post" enctype="multipart/form-data">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input asp-for="Rating" class="form-control" hidden value="0" />
+                <input asp-for="UserId" class="form-control" hidden value="@UserManager.GetUserId(User)" />
+                <div class="form-floating mb-3">
+                    <input class="form-control" placeholder="User" value="@UserManager.GetUserName(User)" disabled />
+                    <label asp-for="UserId">User</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input asp-for="Name" class="form-control" placeholder="Name" autocomplete="off" aria-required="true" />
+                    <label asp-for="Name">Name</label>
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+                <div class="form-floating mb-3">
+                    <input asp-for="PhoneNumber" class="form-control" placeholder="PhoneNumber" autocomplete="off" aria-required="true" />
+                    <label asp-for="PhoneNumber">PhoneNumber</label>
+                    <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                </div>
+                <div class="form-floating mb-3">
+                    <input asp-for="WorkingHours" class="form-control" placeholder="WorkingHours" autocomplete="off" aria-required="true" />
+                    <label asp-for="WorkingHours">WorkingHours</label>
+                    <span asp-validation-for="WorkingHours" class="text-danger"></span>
+                </div>
+                <div class="form-floating mb-3">
+                    <input asp-for="Address" class="form-control" placeholder="Address" autocomplete="off" aria-required="true" />
+                    <label asp-for="Address">Address</label>
+                    <span asp-validation-for="Address" class="text-danger"></span>
+                </div>
+                <div class="form-floating mb-3">
+                    <input asp-for="Description" class="form-control" placeholder="Description" autocomplete="off" />
+                    <label asp-for="Description">Description</label>
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+                <div class="form-floating mb-3">
+                    <select asp-for="Category" class="form-control" placeholder="Category" aria-required="true" asp-items="@Html.GetEnumSelectList<CategoryOfBusiness>()"></select>
+                    <label asp-for="Category">Category</label>
+                    <span asp-validation-for="Category" class="text-danger"></span>
+                </div>
+                <div class="form-floating mb-3">
+                    <input asp-for="ImagesPath" disabled class="form-control imagespath-file-input" placeholder="Images" />
+                    <label asp-for="ImagesPath" class="images-file-label">Images</label>
+                    <span asp-validation-for="ImagesPath" class="text-danger"></span>
+                </div>
+                <div class="form-group mb-3">
+                    <input hidden asp-for="Images" class="images-file-input" id="images-file" multiple>
+                    <label class="btn btn-file form-control" for="images-file">Choose Images</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input asp-for="LogoPath" disabled class="form-control logopath-file-input" placeholder="Logo" />
+                    <label asp-for="LogoPath" class="logo-file-label">Logo</label>
+                    <span asp-validation-for="LogoPath" class="text-danger"></span>
+                </div>
+                <div class="form-group mb-3">
+                    <input hidden asp-for="Logo" class="logo-file-input" id="logo-file">
+                    <label class="btn btn-file form-control" for="logo-file">Choose Logo</label>
+                </div>
+                <div class="form-group mb-3">
+                    <input type="submit" value="Create Business" class="btn btn-create form-control" />
+                </div>
+            </form>
+        </section>
+        </section>
+    </section>
+</section>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

@@ -1,0 +1,44 @@
+﻿@model List<Worker>
+
+<section>
+    <div class="section-title">
+        <div class="h3 text-center position-relative">
+            Workers
+            <a class="modal-link position-absolute end-0 link-create bi bi-person-plus" asp-action="_Add"
+               asp-controller="Worker" asp-area="Manager" asp-route-businessId="@Model.FirstOrDefault()"
+               data-bs-toggle="modal" data-bs-target="#modal-form"></a>
+        </div>
+    </div>
+    @if (Model.Any())
+    {
+        <div class="col-md-12 p-4 section section-grid">
+            @foreach (var worker in Model)
+            {
+                <div class="worker-inner">
+                    <form asp-action="Remove" asp-controller="Worker" asp-area="Manager" method="post">
+                        <input type="hidden" name="workerId" value="@worker.Id" />
+                        <button class="remove-worker input-link link-delete bi bi-person-x-fill" type="submit"></button>
+                    </form>
+                    <div class="worker-photo">
+                        <a asp-action="Details" asp-controller="Worker" asp-area="" asp-route-workerId="@worker.Id" class="worker-name">
+                            <img src="../@worker.User.PhotoPath" />
+                        </a>
+                    </div>
+                    <div class="worker-info">
+                        <a asp-action="Details" asp-controller="Worker" asp-area="" asp-route-workerId="@worker.Id" class="worker-name">@worker.User.Name</a>
+                        <div class="worker-description">@worker.Description</div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <section class="section">
+            <div class="text-center h-4 d-flex justify-content-center align-items-center" style="height: 100px;">
+                There are no workers in the business.
+            </div>
+        </section>
+
+    }
+</section>

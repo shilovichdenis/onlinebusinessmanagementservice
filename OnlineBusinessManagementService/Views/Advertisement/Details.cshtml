@@ -1,0 +1,89 @@
+﻿@model AdvertisementViewModel
+@{
+    ViewData["Title"] = "Advertisement";
+}
+
+<section class="modal-content d-flex flex-column justify-content-center align-items-center">
+    <section class="col-md-12">
+        <section class="section-title col-md-12">
+            <div class="h3 text-center">
+                Advertisement
+                <a class="text-white position-absolute end-0 text-decoration-none me-4" href="#" data-bs-dismiss="modal">&times</a>
+            </div>
+        </section>
+        <section class="advertisement-details-inner col-md-12 d-flex justify-content-evenly section py-4 px-0" style="background-image: url(../@Model.ImagePath.Replace(@"\","/"));">
+            <section class="left-part-form col-md-5 d-flex flex-column justify-content-start">
+                <div class="form-floating col-md-12 mb-3">
+                    <input disabled value="@Model.Name" class="form-control" />
+                    <label>Name</label>
+                </div>
+                <div class="form-floating col-md-12 mb-3">
+                    <input disabled value="@Model.Discount%" class="form-control" />
+                    <label>Discount</label>
+                </div>
+            </section>
+            <section class="right-part-form col-md-5 d-flex flex-column justify-content-start">
+                <div class="form-floating col-md-12 mb-3">
+                    <input disabled value="@Model.Description" class="form-control" />
+                    <label>Description</label>
+                </div>
+                <div class="form-floating col-md-12 mb-3">
+                    <input disabled value="До @Model.EndDate.ToString("M")" class="form-control" />
+                    <label>Date</label>
+                </div>
+            </section>
+        </section>
+    </section>
+    <section class="services-list col-md-12">
+        <section>
+            <div class="section-title col-md-12">
+                <div class="h3 text-center position-relative">
+                    Services
+                </div>
+            </div>
+            <div class="col-md-12 p-4 section-table section-scroll">
+                <table class="table text-center col-md-10 table-services align-middle">
+                    <tbody>
+                        @if (Model.Services.Any())
+                        {
+                            @foreach (var service in Model.Services)
+                            {
+                                <tr>
+                                    <td class="col-md-1">
+                                        <img src="../@service.Service.ImagePath.Replace("\"", "/")" style="height: 50px; width: 50px;" />
+                                    </td>
+                                    <td class="col-md-auto text-start">
+                                        <div class="fw-bold">
+                                            <a asp-action="Details" asp-controller="Service" asp-area="" asp-route-serviceId="@service.ServiceId">
+                                                @service.Service.Name
+                                            </a>
+                                        </div>
+                                        <div class="text-secondary">
+                                            @service.Service.Category.Name
+                                        </div>
+                                    </td>
+                                    <td class="col-md-1">
+                                        @service.Service.Price BYN
+                                    </td>
+                                    <td class="col-md-1">
+                                        @service.Service.Time
+                                    </td>
+                                    <td class="col-md-1">
+                                        <a class="record-create-link" asp-action="Index"
+                                   asp-controller="Worker" asp-area="" asp-route-serviceId="@service.ServiceId">
+                                            <i class="bi bi-journal-text"></i>
+                                            <span>
+                                                Book
+                                            </span>
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </section>
+</section>
+

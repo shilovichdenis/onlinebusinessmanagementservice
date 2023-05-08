@@ -1,0 +1,63 @@
+﻿@model List<BusinessViewModel>
+
+<section>
+    <div class="section-title">
+        <div class="h3 text-center position-relative">
+            Favorite Businesses
+        </div>
+    </div>
+    <section class="section">
+        <div class="d-flex justify-content-center">
+            <div class="col-md-12 p-4 section-scroll section-table">
+                <table class="table text-center col-md-10 table-services">
+                    <tbody>
+                        @if (Model.Any())
+                        {
+                            @foreach (var business in Model)
+                            {
+                                <tr>
+                                    <td class="col-md-2">
+                                        <div class="business-slider" style="height: 120px; width: 120px;">
+                                            @foreach (var image in business.ImagesForView)
+                                            {
+                                                <div class="business-image-inner" style="height: 120px; width: 120px;">
+                                                    <div class="business-image-bg" style="background-image: url(/@image); height: 120px; width: 120px;">
+                                                    </div>
+                                                </div>
+                                            }
+                                        </div>
+                                    </td>
+                                    <td class="col-md-auto text-start fs-6">
+                                        <div class="d-flex align-items-start justify-content-start flex-column">
+                                            <div class="fw-bold">
+                                                <a class="modal-link" asp-action="Details" asp-controller="Business" asp-area="" asp-route-businessId="@business.BusinessId">
+                                                    @business.Name
+                                                </a>
+                                            </div>
+                                            <div class="text-secondary">
+                                                Working Hours: @business.WorkingHours
+                                                <br />
+                                                Address: @business.Address
+                                                <br />
+                                                PhoneNumber: @business.PhoneNumber
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="col-md-1">
+                                        <img src="/@business.LogoPath.Replace(@"\","/")" style="height: 50px; width: 50px;" />
+                                    </td>
+                                </tr>
+                            }
+                        }
+                        else
+                        {
+                            <tr>
+                                <td colspan="3">There are no favorite businesses.</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+</section>

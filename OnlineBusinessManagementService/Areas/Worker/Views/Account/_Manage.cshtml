@@ -1,0 +1,66 @@
+﻿@using Microsoft.AspNetCore.Identity;
+@model WorkerViewModel
+@inject UserManager<IdentityUser> UserManager
+
+<section>
+    <section class="section-title">
+        <div class="h3 text-center">
+            Information
+        </div>
+    </section>
+    <section class="col-md-12 d-flex justify-content-evenly section py-4 px-0">
+        <section class="left-part-form col-md-5 d-flex justify-content-center">
+            <div class="photo-inner">
+                <img src="/@Model.User.PhotoPath.Replace(@"\","/")" />
+            </div>
+        </section>
+        <section class="right-part-form col-md-5">
+            <form asp-action="Manage" asp-controller="Account" asp-area="Worker" method="post" enctype="multipart/form-data">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="WorkerId" />
+                <input type="hidden" asp-for="BusinessId" />
+                <input type="hidden" asp-for="UserId" />
+                <input type="hidden" asp-for="Rating" />
+                <input type="hidden" asp-for="ImagesPath" />
+                <div class="form-floating mb-3">
+                    <input disabled value="@Model.User.SurName @Model.User.Name" class="form-control" placeholder="Personal Data" autocomplete="off" aria -required="true" />
+                    <label asp-for="User.SurName">Personal Data</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input disabled value="@Model.User.PhoneNumber" class="form-control" placeholder="Phone Number" autocomplete="off" aria-required="true" />
+                    <label asp-for="User.PhoneNumber">Phone Number</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input disabled value="@Model.User.Email" class="form-control" placeholder="Email" autocomplete="off" aria-required="true" />
+                    <label asp-for="User.Email">Email</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input asp-for="Description" class="form-control" placeholder="Description" autocomplete="off" aria-required="true" />
+                    <label asp-for="Description">Description</label>
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+                <div class="form-floating mb-3">
+                    <input class="form-control" placeholder="Rating" autocomplete="off" aria-required="true" disabled value="@Model.Rating" />
+                    <label asp-for="Rating">Rating</label>
+                    <span asp-validation-for="Rating" class="text-danger"></span>
+                </div>
+                <div class="form-group mb-3 text-center align-middle">
+                    <input type="submit" value="Edit Worker Account" class="form-control btn btn-edit" />
+                </div>
+            </form>
+            <form asp-controller="Account" asp-action="Delete" asp-area="Worker" method="post">
+                <input type="hidden" name="workerId" value="@Model.WorkerId" />
+                <div class="form-group mb-3 text-center align-middle">
+                    <input type="submit" value="Delete Worker Account" class="form-control btn btn-delete" />
+                </div>
+            </form>
+        </section>
+    </section>
+</section>
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

@@ -1,0 +1,100 @@
+﻿@using Microsoft.AspNetCore.Identity;
+@model BusinessViewModel
+@inject UserManager<IdentityUser> UserManager
+
+<section>
+    <div class="section-title">
+        <div class="h3 text-center">
+            Information
+        </div>
+    </div>
+    <form class="manage-business-form col-md-12 d-flex flex-column justify-content-evenly" asp-action="Manage" asp-controller="Business" asp-area="Manager" method="post" enctype="multipart/form-data">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input type="hidden" asp-for="BusinessId" />
+        <input type="hidden" asp-for="UserId" value="@UserManager.GetUserId(User)" />
+        <input type="hidden" asp-for="Rating" />
+        <input type="hidden" asp-for="LogoPath" />
+        <input type="hidden" asp-for="ImagesPath" />
+        <section class="d-flex justify-content-evenly">
+            <section class="left-part-form col-md-5">
+                <div class="form-floating mb-3">
+                    <input asp-for="Name" class="form-control" placeholder="Name" autocomplete="off" aria-required="true" />
+                    <label asp-for="Name">Name</label>
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+                <div class="form-floating mb-3">
+                    <input asp-for="PhoneNumber" class="form-control" placeholder="PhoneNumber" autocomplete="off" aria-required="true" />
+                    <label asp-for="PhoneNumber">PhoneNumber</label>
+                    <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                </div>
+                <div class="form-floating mb-3">
+                    <input asp-for="WorkingHours" class="form-control" placeholder="WorkingHours" autocomplete="off" aria-required="true" />
+                    <label asp-for="WorkingHours">WorkingHours</label>
+                    <span asp-validation-for="WorkingHours" class="text-danger"></span>
+                </div>
+                <div class="form-floating mb-3">
+                    <input asp-for="Address" class="form-control" placeholder="Address" autocomplete="off" aria-required="true" />
+                    <label asp-for="Address">Address</label>
+                    <span asp-validation-for="Address" class="text-danger"></span>
+                </div>
+                <div class="form-floating mb-3">
+                    <input asp-for="Description" class="form-control" placeholder="Description" autocomplete="off" aria-required="true" />
+                    <label asp-for="Description">Description</label>
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+                <div class="form-floating mb-3">
+                    <input disabled value="@ViewBag.TotalPrice BYN" class="form-control" />
+                    <label>Total Price</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input disabled value="@ViewBag.RecordsCount" class="form-control" />
+                    <label>Records Count</label>
+                </div>
+                <div class="form-group mb-3 text-center align-middle">
+                    <input type="submit" value="Edit Business" class="form-control btn btn-edit" />
+                </div>
+            </section>
+            <section class="right-part-form col-md-5">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <img src="/@Model.LogoPath.Replace(@"\","/")" style="width: 150px; height: 150px; border-radius: 20px;" />
+                    </div>
+                    <div class="business-slider">
+                        @foreach (var image in Model.ImagesForView)
+                        {
+                            <div class="business-image-inner">
+                                <div class="business-image-bg" style="background-image: url(/@image);">
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+                <div class="form-floating mb-3">
+                    <label asp-for="Logo">Logo</label>
+                    <span asp-validation-for="Logo" class="text-danger"></span>
+                </div>
+                <div class="form-floating mb-3">
+                    <select asp-for="Category" class="form-control" placeholder="Category" autocomplete="off" aria-required="true" asp-items="@Html.GetEnumSelectList<CategoryOfBusiness>()"></select>
+                    <label asp-for="Category">Category</label>
+                    <span asp-validation-for="Category" class="text-danger"></span>
+                </div>
+                <div class="form-floating mb-3">
+                    <input class="form-control" placeholder="Rating" autocomplete="off" aria-required="true" disabled value="@Model.Rating" />
+                    <label asp-for="Rating">Rating</label>
+                    <span asp-validation-for="Rating" class="text-danger"></span>
+                </div>
+                <div class="form-floating mb-3">
+                    <input disabled value="@ViewBag.ClientsCount" class="form-control" />
+                    <label>Clients Count</label>
+                </div>
+
+            </section>
+        </section>
+    </form>
+</section>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

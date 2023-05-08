@@ -1,0 +1,38 @@
+﻿@model List<Worker>
+
+<section>
+    <div class="section-title">
+        <div class="h3 text-center position-relative">
+            Workers
+        </div>
+    </div>
+    @if (Model.Any())
+    {
+        <div class="col-md-12 p-4 section workers-slider">
+            @foreach (var worker in Model)
+            {
+                <div class="worker-slider-item">
+                    <div class="worker-inner">
+                        <div class="worker-photo">
+                            <a asp-action="Details" asp-controller="Worker" asp-area="" asp-route-workerId="@worker.Id" class="worker-name">
+                                <img src="../@worker.User.PhotoPath" />
+                            </a>
+                        </div>
+                        <div class="worker-info">
+                            <a asp-action="Details" asp-controller="Worker" asp-area="" asp-route-workerId="@worker.Id" class="worker-name">@worker.User.Name</a>
+                            <div class="worker-description">@worker.Description</div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <section class="section">
+            <div class="text-center h-4 d-flex justify-content-center align-items-center" style="height: 100px;">
+                There are no workers in the business.
+            </div>
+        </section>
+    }
+</section>

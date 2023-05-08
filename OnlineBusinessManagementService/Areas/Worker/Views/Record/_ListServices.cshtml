@@ -1,0 +1,48 @@
+﻿@model (List<RecordServices>, int)
+
+<section class="col-md-12 d-flex flex-column justify-content-start">
+    <table class="table text-center col-md-10 table-services align-middle">
+        <tbody>
+            @if (Model.Item1.Any())
+            {
+                @foreach (var service in Model.Item1.Select(w => w.Service))
+                {
+                    <tr>
+                        <td class="col-md-1">
+                            <img src="/@service.Service.ImagePath.Replace(@"\","/")" style="height: 50px; width: 50px;" />
+                        </td>
+                        <td class="col-md-auto text-start">
+                            <div class="fw-bold">
+                                @service.Service.Name
+                            </div>
+                            <div class="text-secondary">
+                                @service.Service.Category.Name
+                            </div>
+                        </td>
+                        <td class="col-md-1">
+                            @service.Service.Price BYN
+                        </td>
+                        <td class="col-md-1">
+                            @service.Service.Time
+                        </td>
+                        <td class="col-md-1">
+                            <div class="link-div">
+                                <form id="service-@service.Id" asp-action="RemoveService" asp-controller="Record" asp-area="" method="post">
+                                    <input type="hidden" name="recordId" value="@Model.Item2" />
+                                    <input type="hidden" name="wServiceId" value="@service.Id" />
+                                    <button type="submit" class="input-link bi bi-trash link-delete"></button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="5">There are no services.</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</section>

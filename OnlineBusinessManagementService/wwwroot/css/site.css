@@ -1,0 +1,348 @@
+html {
+    font-size: 14px;
+}
+
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    margin-bottom: 5em;
+    background-color: #2d3b54;
+}
+
+header, footer {
+    background-color: #122c36 !important;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+    a:hover {
+        color: #122c36;
+    }
+
+.link-favorite {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 28px !important;
+    color: #d9ca23;
+}
+
+    .link-favorite:hover {
+        color: #d9ca23;
+    }
+
+.link-create {
+    color: white;
+}
+
+    .link-create:hover {
+        color: #0c1414;
+    }
+
+.link-cancel {
+    color: white;
+}
+
+    .link-cancel:hover {
+        color: #ed802d;
+    }
+
+.link-edit {
+    color: #516134;
+}
+
+    .link-edit:hover {
+        color: #1f211b;
+    }
+
+.link-delete {
+    color: #cf2929;
+}
+
+    .link-delete:hover {
+        color: #941313;
+    }
+
+.link-div {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+    .link-div a {
+        font-size: 20px;
+        width: 30px;
+        height: 30px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .link-div button {
+        font-size: 20px;
+        width: 30px;
+        height: 30px;
+    }
+
+.btn-create {
+    color: white;
+    background-color: #0c1414;
+    border: 2px solid #0c1414;
+}
+
+    .btn-create:hover {
+        background-color: white;
+        color: #0c1414;
+        font-weight: bold;
+        border: 2px solid #0c1414;
+    }
+
+
+.btn-edit {
+    color: white;
+    background-color: #516134;
+    border: 2px solid #516134;
+}
+
+    .btn-edit:hover {
+        background-color: white;
+        color: #516134;
+        font-weight: bold;
+        border: 2px solid #516134;
+    }
+
+.btn-delete {
+    color: white;
+    background-color: #cf2929;
+    border: 2px solid #cf2929;
+}
+
+    .btn-delete:hover {
+        background-color: white;
+        color: #941313;
+        font-weight: bold;
+        border: 2px solid #941313;
+    }
+
+.btn-cancel {
+    color: white;
+    background-color: #ed802d;
+    border: 2px solid #ed802d;
+}
+
+    .btn-cancel:hover {
+        background-color: white;
+        color: #ed802d;
+        font-weight: bold;
+        border: 2px solid #ed802d;
+    }
+
+.btn-file {
+    color: white;
+    background-color: #122c36;
+    border: 2px solid #122c36;
+}
+
+    .btn-file:hover {
+        background-color: white;
+        color: #122c36;
+        font-weight: bold;
+        border: 2px solid #122c36;
+    }
+
+.input-link {
+    background-color: transparent;
+    border: none;
+    font-size: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+}
+
+.review-form {
+    border: 1px solid #0c1414;
+    border-radius: 10px;
+    padding: .5em 1em;
+}
+
+    .review-form textarea {
+        min-height: 100px;
+        max-height: 100px;
+    }
+
+.review-title {
+    color: #0c1414;
+    display: flex;
+    justify-content: space-between;
+}
+
+.star {
+    color: #122c36;
+    margin: 0 .1em;
+}
+
+    .star:hover {
+        color: #fcdb03;
+    }
+
+.star-fill {
+    color: #fcdb03;
+}
+
+    .star-fill:hover {
+        color: #fcdb03;
+    }
+
+.stars {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: .5em;
+}
+
+.review {
+    border-bottom-color: #122c36;
+}
+
+.review-description {
+    border: 1px solid #122c36;
+    padding: .5em 1em;
+    height: 50px;
+    border-radius: 10px;
+    margin-bottom: .5em;
+    font-size: 12px;
+}
+
+.review-photo {
+    width: 70px;
+    height: 70px;
+    border-radius: 10px;
+}
+
+.business-imgbox {
+    width: 100px;
+    height: 100px;
+}
+
+    .business-imgbox img {
+        width: 100%;
+        height: 100%;
+    }
+
+.business-name {
+    font-weight: bold;
+}
+
+.record-create-link {
+    color: black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: .2em .5em;
+    color: white;
+    background-color: #0c1414;
+    border: 2px solid #0c1414;
+    border-radius: 10px;
+    font-weight: 400;
+}
+
+    .record-create-link:hover {
+        background-color: white;
+        color: #0c1414;
+        border: 2px solid #0c1414;
+    }
+
+    .record-create-link span {
+        font-size: 18px;
+    }
+
+    .record-create-link i {
+        display: flex;
+        font-size: 20px;
+        margin-right: 10px;
+    }
+
+.record-edit-link {
+    color: black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: .2em .5em;
+    color: white;
+    background-color: #516134;
+    border: 2px solid #516134;
+    border-radius: 10px;
+    font-weight: 400;
+}
+
+    .record-edit-link:hover {
+        background-color: white;
+        color: #0c1414;
+        border: 2px solid #0c1414;
+    }
+
+    .record-edit-link span {
+        font-size: 18px;
+    }
+
+    .record-edit-link i {
+        display: flex;
+        font-size: 20px;
+        margin-right: 10px;
+    }
+
+.add-service-record {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #0c1414;
+    padding: .2em .5em;
+    color: white;
+    background-color: #0c1414;
+    border: 2px solid #0c1414;
+    border-radius: 10px;
+    font-weight: 400;
+}
+
+    .add-service-record:hover {
+        background-color: white;
+        color: #0c1414;
+        border: 2px solid #0c1414;
+    }
+
+    .add-service-record span {
+        font-size: 18px;
+    }
+
+    .add-service-record i {
+        display: flex;
+        margin-right: 10px;
+    }
+.advertisement-details-inner{
+    background-color: none;
+    background-position: center center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.business-slider .slick-arrow:before {
+    color: #122c36;
+}

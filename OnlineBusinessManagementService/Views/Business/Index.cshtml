@@ -1,0 +1,63 @@
+﻿@model List<BusinessViewModel>
+@{
+    ViewData["Title"] = "Businesses";
+}
+<section class="d-flex justify-content-center">
+    <section class="col-md-10">
+        <div class="section-title">
+            <div class="h3 text-center position-relative">
+                Businesses
+            </div>
+        </div>
+        <div class="col-md-12 p-4 section section-table">
+            <table class="table text-center col-md-10 table-services">
+                <tbody>
+                    @if (Model.Any())
+                    {
+                        @foreach (var business in Model)
+                        {
+                            <tr>
+                                <td class="col-md-3">
+                                    <div class="business-slider" style="height: 150px; width: 150px;">
+                                        @foreach (var image in business.ImagesForView)
+                                        {
+                                            <div class="business-image-inner" style="height: 150px; width: 150px;">
+                                                <div class="business-image-bg" style="background-image: url(/@image); height: 150px; width: 150px;">
+                                                </div>
+                                            </div>
+                                        }
+                                    </div>
+                                </td>
+                                <td class="col-md-auto text-start fs-5">
+                                    <div class="d-flex align-items-start justify-content-start flex-column">
+                                        <div class="fw-bold">
+                                            <a class="modal-link" asp-action="Details" asp-controller="Business" asp-area="" asp-route-businessId="@business.BusinessId">
+                                                @business.Name
+                                            </a>
+                                        </div>
+                                        <div class="text-secondary">
+                                            Working Hours: @business.WorkingHours
+                                            <br />
+                                            Address: @business.Address
+                                            <br />
+                                            PhoneNumber: @business.PhoneNumber
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="col-md-1">
+                                    <img src="/@business.LogoPath.Replace(@"\","/")" style="height: 60px; width: 60px;" />
+                                </td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="3">There are no businesses.</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </section>
+</section>

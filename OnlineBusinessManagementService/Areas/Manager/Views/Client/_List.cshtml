@@ -1,0 +1,85 @@
+﻿@model List<Client>
+@{
+    ViewData["Title"] = "Clients";
+}
+<section>
+    <div class="section-title">
+        <div class="h3 text-center position-relative">
+            Clients
+        </div>
+    </div>
+    <div class="col-md-12 p-4 section-table section-scroll">
+        <table class="table text-center col-md-10 table-services align-middle">
+            <tbody>
+                @if (Model.Any())
+                {
+                    @foreach (var client in Model)
+                    {
+                        <tr>
+                            <td class="col-md-1">
+                                <img src="/@client.User.PhotoPath.Replace(@"\","/")" style="height: 50px; width: 50px;" />
+                            </td>
+                            <td class="col-md-auto text-start">
+                                <div class="fw-bold">
+                                    <a class="modal-link" asp-action="Details" asp-controller="Client" asp-area="" asp-route-clientId="@client.Id" data-bs-toggle="modal" data-bs-target="#modal-form">
+                                        @client.User.SurName @client.User.Name
+                                    </a>
+                                </div>
+                                <div class="text-secondary">
+                                    @client.User.Email @if (@client.inBlacklist)
+                                    {
+                                        <span class="fw-bold text-dark">- IN BLACK LIST</span>
+                                    }
+                                </div>
+                            </td>
+                            <td class="col-md-3">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <form class="d-flex justify-content-end align-items-center" asp-action="Edit" asp-controller="Client" asp-area="Manager" method="post">
+                                        <div class="form-floating me-2 w-50">
+                                            <input type="hidden" name="clientId" value="@client.Id" />
+                                            <input type="hidden" name="businessId" value="@client.BusinessId" />
+                                            <input name="sale" class="form-control" value="@client.Sale" placeholder="Sale %" autocomplete="off" aria-required="true" />
+                                            <label>Sale %</label>
+                                        </div>
+                                        <div class="link-div">
+                                            <button class="input-link link-edit bi bi-journal-text" type="submit"></button>
+                                        </div>
+                                    </form>
+                                    <div class="link-div">
+                                        @if (client.inBlacklist)
+                                        {
+                                            <form asp-action="RemoveFromBlacklist" asp-controller="Client" asp-area="Manager" method="post">
+                                                <input type="hidden" name="clientId" value="@client.Id" />
+                                                <input type="hidden" name="businessId" value="@client.BusinessId" />
+                                                <button class="d-flex input-link link-file bi bi-journal-bookmark" type="submit"></button>
+                                            </form>
+                                        }
+                                        else
+                                        {
+                                            <form asp-action="AddToBlacklist" asp-controller="Client" asp-area="Manager" method="post">
+                                                <input type="hidden" name="clientId" value="@client.Id" />
+                                                <input type="hidden" name="businessId" value="@client.BusinessId" />
+                                                <button class="input-link link-file bi bi-journal-bookmark-fill" type="submit"></button>
+                                            </form>
+                                        }
+                                        <form asp-action="Delete" asp-controller="Client" asp-area="Manager" method="post">
+                                            <input type="hidden" name="clientId" value="@client.Id" />
+                                            <input type="hidden" name="businessId" value="@client.BusinessId" />
+                                            <button class="d-flex input-link link-delete bi bi-journal-x" type="submit"></button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="5">There are no clients in the business.</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</section>
